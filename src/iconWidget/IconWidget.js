@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 var FontAwesome = require('react-fontawesome');
 
+
 // This exercise is getting building a component different from the weather table
 // that will utilize the api data. Based on weather description found in the 
 // api response, render the following icons:
@@ -16,21 +17,19 @@ var FontAwesome = require('react-fontawesome');
 
 class Icons extends Component {
   render () {
+    console.log(this.props);
+    var sk8boi = this.props.weatherData;
+    var iconCode = sk8boi.weather[0].icon;
+    var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+    console.log(sk8boi.weather[0].icon);
+    console.log(sk8boi.weather[0].description);
     return (
       <div>
         <Card>
-          <CardImg top width='100%' src='https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180' alt='Card image cap' />
           <CardBody>
-            <CardTitle>Bozeman</CardTitle>
-            <CardSubtitle>Sunny</CardSubtitle>
-            <FontAwesome
-              className='{font awesome classes}'
-              name='{name}'
-              size='2x'
-              className='fa fa-sun-o'
-              name='umbrella'
-              size='2x'
-            />
+            <CardTitle>{sk8boi.name}</CardTitle>
+            <CardSubtitle>{sk8boi.weather[0].description}</CardSubtitle>
+            <img src={iconUrl} />
           </CardBody>
         </Card>
       </div>
@@ -80,4 +79,3 @@ export default Icons;
 //     );
 //   }
 // }
-// export default IconWidget;
