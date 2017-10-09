@@ -1,57 +1,28 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink , Table} from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Table } from 'reactstrap';
 import kelvinToFahrenheit from 'kelvin-to-fahrenheit';
 import Icons from './iconWidget/IconWidget.js';
 import SearchBar from './searchBar/SearchBar.js';
+import NavBar from './Navbar.js';
+import { CurrentWeather, SunriseReport } from './routes.js';
 
 //  api key 4 l8tr = 3d6b633422451393e953dab4052ea0e4
 //  url 4 l8tr  - http://api.openweathermap.org/data/2.5/weather?q=Bozeman&appid= 
 class WeatherComponent extends React.Component {
-  constructor () {
-    super();
-    this.weatherMethod = this.weatherMethod.bind(this); //this is so that we can use the weatherMethod function?
-    this.state = {
-      initialized: false
-    };
-  }
-  weatherMethod (city) {
-    var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=3d6b633422451393e953dab4052ea0e4';
-    fetch(url).then(function (response) {
-      return response.json();
-    }).then((weatherObj) => {
-      console.log(weatherObj);
-      this.weatherData = weatherObj;
-      this.setState({
-        initialized: true
-      });
-    });
-  }
-  componentDidMount () {
-    this.weatherMethod("Santa Barbara"); //compondent did mount is what happens the first time the page renders
-  }
-
-  render () {
-    if (this.state.initialized) {
+  render() {
       return (
         <div>
-          <h1>{this.weatherData.name}</h1>
-          <TableLogic weatherData={this.weatherData} />
-          <Icons weatherData={this.weatherData} />
-          <SearchBar weatherMethod={this.weatherMethod} />
+          <h1>{this.props.weatherData.name}</h1>
+          <TableLogic weatherData={this.props.weatherData} />
+          <Icons weatherData={this.props.weatherData} />
+          <SearchBar weatherMethod={this.props.weatherMethod} />
         </div>
       );
-    } else {
-      return (
-        <h2>
-          Loading...
-        </h2>
-      );
-    }
   };
 }
 //Is this below a child? it is but why is there no super?
 class WeatherTBody extends Component {
-  render () {
+  render() {
     return (
 
       <tbody>
@@ -75,10 +46,10 @@ class WeatherTBody extends Component {
 }
 
 class Temperature extends Component {
-  constructor () {
+  constructor() {
     super();
   }
-  render () {
+  render() {
     return (
 
       <div>{(kelvinToFahrenheit(this.props.tempK))}&deg;F</div>
@@ -87,10 +58,10 @@ class Temperature extends Component {
 }
 
 class TableLogic extends Component {
-  constructor () {
+  constructor() {
     super();
   }
-  render () {
+  render() {
     return (
       <div>
 

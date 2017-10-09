@@ -6,6 +6,8 @@ import WeatherComponent from './Weather.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './iconWidget/IconWidget.js';
-ReactDOM.render(<WeatherComponent />, document.getElementById('root'));
+import NavBar from './Navbar.js';
+import App from './App.js';
+ReactDOM.render(<App />, document.getElementById('root'));
 
 registerServiceWorker();
